@@ -13,7 +13,7 @@
         },
 		"EnvironmentName": {
 			"type": "string",
-			"defaultValue": "Dev",
+			"defaultValue": "Personal",
 			"allowedValues": [
 				"Personal",
 				"Test",
