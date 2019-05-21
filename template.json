@@ -10,14 +10,28 @@
         },
         "serverName": {
             "type": "string"
-        }
+        },
+		"EnvironmentName": {
+			"type": "string",
+			"defaultValue": "Dev",
+			"allowedValues": [
+				"Personal",
+				"Test",
+				"Demo",
+				"PreProd",
+				"Prod"
+			},
+			"metadata": {
+				"description": "Choose what kind of environment you are creating"
+			}
+		}
     },
     "resources": [
         {
             "apiVersion": "2018-06-01-preview",
             "kind": "",
             "location": "[variables('location')]",
-            "name": "[parameters('serverName')]",
+            "name": "[concat(parameters('serverName'), '-', parameters('EnvironmentName'))]",
             "properties": {
                 "version": "[variables('version')]",
                 "administratorLogin": "[parameters('administratorLogin')]",
