@@ -8,72 +8,63 @@
         "administratorLoginPassword": {
             "type": "securestring"
         },
-        "location": {
-            "type": "string"
-        },
         "serverName": {
             "type": "string"
         },
-        "skuCapacity": {
-            "type": "int"
-        },
-        "skuFamily": {
-            "type": "string"
-        },
-        "skuName": {
-            "type": "string"
-        },
-        "skuSizeMB": {
-            "type": "int"
-        },
-        "skuTier": {
-            "type": "string"
-        },
-        "version": {
-            "type": "string"
-        },
-        "backupRetentionDays": {
-            "type": "int"
-        },
-        "geoRedundantBackup": {
-            "type": "string"
-        },
-        "previewFeature": {
-            "type": "string",
-            "defaultValue": ""
-        },
-        "storageAutoGrow": {
-            "type": "string",
-            "defaultValue": "Disabled"
-        }
+		"EnvironmentName": {
+			"type": "string",
+			"defaultValue": "Dev",
+			"allowedValues": [
+				"Personal",
+				"Test",
+				"Demo",
+				"PreProd",
+				"Prod"
+			],
+			"metadata": {
+				"description": "Choose what kind of environment you are creating"
+			}
+		}
     },
     "resources": [
         {
             "apiVersion": "2018-06-01-preview",
             "kind": "",
-            "location": "[parameters('location')]",
-            "name": "[parameters('serverName')]",
+            "location": "[variables('location')]",
+            "name": "[concat(parameters('serverName'), '-', parameters('EnvironmentName'))]",
             "properties": {
-                "version": "[parameters('version')]",
+                "version": "[variables('version')]",
                 "administratorLogin": "[parameters('administratorLogin')]",
                 "administratorLoginPassword": "[parameters('administratorLoginPassword')]",
                 "storageProfile": {
-                    "storageMB": "[parameters('skuSizeMB')]",
-                    "backupRetentionDays": "[parameters('backupRetentionDays')]",
-                    "geoRedundantBackup": "[parameters('geoRedundantBackup')]",
-                    "storageAutoGrow": "[parameters('storageAutoGrow')]"
+                    "storageMB": "[variables('skuSizeMB')]",
+                    "backupRetentionDays": "[variables('backupRetentionDays')]",
+                    "geoRedundantBackup": "[variables('geoRedundantBackup')]",
+                    "storageAutoGrow": "[variables('storageAutoGrow')]"
                 },
-                "previewFeature": "[parameters('previewFeature')]"
+                "previewFeature": "[variables('previewFeature')]"
             },
             "sku": {
-                "name": "[parameters('skuName')]",
-                "tier": "[parameters('skuTier')]",
-                "capacity": "[parameters('skuCapacity')]",
-                "size": "[parameters('skuSizeMB')]",
-                "family": "[parameters('skuFamily')]"
+                "name": "[variables('skuName')]",
+                "tier": "[variables('skuTier')]",
+                "capacity": "[variables('skuCapacity')]",
+                "size": "[variables('skuSizeMB')]",
+                "family": "[variables('skuFamily')]"
             },
             "type": "Microsoft.DBforMariaDB/servers"
         }
     ],
-    "variables": {}
+    "variables": {
+		"location": "uksouth",
+        "skuName": "B_Gen5_1",
+        "skuTier": "Basic",
+        "skuCapacity": 1,
+        "skuFamily": "Gen5",
+        "skuSizeMB": 5120,
+        "version": "10.2",
+        "backupRetentionDays": 7,
+        "geoRedundantBackup": "Disabled",
+        "storageAutoGrow": "Disabled",
+        "previewFeature": ""
+	}
 }
