@@ -1,0 +1,56 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2014-04-01-preview/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "administratorLogin": {
+            "type": "string"
+        },
+        "administratorLoginPassword": {
+            "type": "securestring"
+        },
+        "serverName": {
+            "type": "string"
+        }
+    },
+    "resources": [
+        {
+            "apiVersion": "2018-06-01-preview",
+            "kind": "",
+            "location": "[variables('location')]",
+            "name": "[parameters('serverName')]",
+            "properties": {
+                "version": "[variables('version')]",
+                "administratorLogin": "[parameters('administratorLogin')]",
+                "administratorLoginPassword": "[parameters('administratorLoginPassword')]",
+                "storageProfile": {
+                    "storageMB": "[variables('skuSizeMB')]",
+                    "backupRetentionDays": "[variables('backupRetentionDays')]",
+                    "geoRedundantBackup": "[variables('geoRedundantBackup')]",
+                    "storageAutoGrow": "[variables('storageAutoGrow')]"
+                },
+                "previewFeature": "[variables('previewFeature')]"
+            },
+            "sku": {
+                "name": "[variables('skuName')]",
+                "tier": "[variables('skuTier')]",
+                "capacity": "[variables('skuCapacity')]",
+                "size": "[variables('skuSizeMB')]",
+                "family": "[variables('skuFamily')]"
+            },
+            "type": "Microsoft.DBforMariaDB/servers"
+        }
+    ],
+    "variables": {
+		"location": "uksouth",
+        "skuName": "B_Gen5_1",
+        "skuTier": "Basic",
+        "skuCapacity": 1,
+        "skuFamily": "Gen5",
+        "skuSizeMB": 5120,
+        "version": "10.2",
+        "backupRetentionDays": 7,
+        "geoRedundantBackup": "Disabled",
+        "storageAutoGrow": "Disabled",
+        "previewFeature": ""
+	}
+}
