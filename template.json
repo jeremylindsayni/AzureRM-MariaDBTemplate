@@ -31,7 +31,7 @@
             "apiVersion": "2018-06-01-preview",
             "kind": "",
             "location": "[variables('location')]",
-            "name": "[concat(parameters('serverName'), '-', parameters('EnvironmentName'))]",
+            "name": "[concat(toLower(parameters('serverName')), '-', toLower(parameters('EnvironmentName')))]",
             "properties": {
                 "version": "[variables('version')]",
                 "administratorLogin": "[parameters('administratorLogin')]",
