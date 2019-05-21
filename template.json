@@ -19,7 +19,7 @@
 				"Test",
 				"Demo",
 				"PreProd",
-				"Prod"
+				"Prod"]
 			},
 			"metadata": {
 				"description": "Choose what kind of environment you are creating"
